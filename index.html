@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPG to WebP Converter – EasyUseHub Elite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #2563eb; --accent: #22d3ee; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; }
+        * { box-sizing: border-box; transition: 0.3s ease; margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); text-align: center; padding-bottom: 120px; overflow-x: hidden; }
+        
+        header { background: #161e2d; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
+        header h2 { font-weight: 800; color: var(--accent); letter-spacing: 2px; }
+
+        .container { width: 92%; max-width: 750px; margin: 30px auto; }
+
+        /* Premium Ad Cards */
+        .custom-ad-bridge {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            color: white; padding: 20px; margin: 15px 0; border-radius: 18px;
+            cursor: pointer; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+            text-align: left; position: relative; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .ad-title { font-size: 18px; font-weight: 800; display: block; margin-bottom: 5px; }
+        .ad-btn { background: #fbbf24; color: #000; padding: 7px 18px; border-radius: 10px; font-weight: 800; font-size: 11px; display: inline-block; text-transform: uppercase; margin-top: 10px; }
+
+        /* Main Converter Card */
+        .tool-card { background: var(--card); padding: 40px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 40px rgba(0,0,0,0.4); margin: 25px 0; }
+        
+        .upload-zone { 
+            border: 2px dashed #3b82f6; padding: 40px; border-radius: 20px; cursor: pointer; 
+            background: rgba(15, 23, 42, 0.5); margin-bottom: 25px; transition: 0.4s;
+        }
+        .upload-zone:hover { border-color: var(--accent); background: rgba(34, 211, 238, 0.05); }
+        #fileInput { display: none; }
+
+        .status-msg { font-size: 14px; color: #94a3b8; margin-top: 10px; }
+
+        .btn-main { 
+            width: 100%; background: linear-gradient(135deg, #3b82f6, #06b6d4); color: white; border: none; 
+            padding: 18px; border-radius: 15px; font-size: 16px; font-weight: 800; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3); display: block;
+        }
+        .btn-main:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        #downloadArea { display: none; margin-top: 20px; animation: slideUp 0.5s ease; }
+        .dl-btn { background: #10b981; color: white; text-decoration: none; padding: 18px; border-radius: 15px; font-weight: 800; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3); }
+
+        /* Push Notification with X */
+        #push-notification {
+            position: fixed; bottom: -150px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 350px; 
+            background: #1e293b; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); 
+            display: flex; align-items: center; padding: 15px; z-index: 10000; border: 1.5px solid var(--accent); transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #push-notification.active { bottom: 90px; }
+        .close-push { position: absolute; top: 8px; right: 12px; font-size: 22px; color: #64748b; cursor: pointer; font-weight: bold; }
+        #push-notification img { width: 45px; height: 45px; border-radius: 10px; margin-right: 15px; }
+
+        /* Fixed Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #161e2d; padding: 15px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; z-index: 1001; display: flex; justify-content: center; gap: 12px; }
+        .nav-link { text-decoration: none; padding: 12px 30px; border-radius: 30px; font-weight: 800; font-size: 14px; color: white; background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+
+        canvas { display: none; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>EASYUSEHUB ELITE</h2>
+</header>
+
+<div id="push-notification" onclick="window.open('https://easyusehub.blogspot.com', '_blank')">
+    <span class="close-push" onclick="event.stopPropagation(); this.parentElement.classList.remove('active');">&times;</span>
+    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968313.png" alt="Icon">
+    <div class="push-text" style="text-align: left;">
+        <b style="color: var(--accent); font-size: 14px;">🚀 46+ Pro Tools Ready!</b>
+        <p style="font-size: 11px; color: #cbd5e1; margin-top: 3px;">PDF, AI Tools & Smart Calculators 100% Free.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="custom-ad-bridge" onclick="window.open('https://easyusehub.blogspot.com', '_blank')">
+        <span class="ad-title">💎 All-in-One Pro Workspace</span>
+        <p style="font-size: 13px; opacity: 0.9;">Access 46+ Premium Utilities for Web & SEO.</p>
+        <div class="ad-btn">Explore Hub</div>
+    </div>
+
+    <main class="tool-card">
+        <h3>Industrial JPG to WebP</h3>
+        <p style="font-size: 13px; color: #94a3b8; margin-bottom: 25px;">Lossless conversion for 100% SEO optimization.</p>
+        
+        <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+            <img src="https://cdn-icons-png.flaticon.com/512/337/337948.png" width="40" style="margin-bottom: 10px; opacity: 0.7;">
+            <p id="statusLabel">Click to select JPG or PNG</p>
+            <input type="file" id="fileInput" accept="image/jpeg, image/png">
+        </div>
+
+        <button class="btn-main" id="processBtn" onclick="processImage()">CONVERT TO WEBP</button>
+
+        <div id="downloadArea">
+            <a id="finalDl" class="dl-btn">⚡ DOWNLOAD WEBP</a>
+            <p class="status-msg">Success! Your image is optimized.</p>
+        </div>
+    </main>
+
+    <div class="custom-ad-bridge" style="background: linear-gradient(135deg, #059669, #10b981);" onclick="window.open('https://easyusehub.blogspot.com/p/image-compressor.html', '_blank')">
+        <span class="ad-title">⚡ High-Speed Image Optimizer</span>
+        <div class="ad-btn" style="background: #fff;">Try Free</div>
+    </div>
+</div>
+
+<div class="bottom-nav">
+    <a href="https://easyusehub.blogspot.com" class="nav-link">🏠 Home</a>
+</div>
+
+<canvas id="canvas"></canvas>
+
+<script>
+    const input = document.getElementById('fileInput');
+    const label = document.getElementById('statusLabel');
+    const dlBtn = document.getElementById('finalDl');
+    const dlArea = document.getElementById('downloadArea');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    input.onchange = () => {
+        if(input.files[0]) {
+            label.innerText = "Selected: " + input.files[0].name;
+            dlArea.style.display = "none";
+            document.getElementById('processBtn').style.display = "block";
+        }
+    };
+
+    function processImage() {
+        const file = input.files[0];
+        if(!file) return alert("Please select an image first!");
+
+        const btn = document.getElementById('processBtn');
+        btn.innerText = "Processing...";
+        btn.disabled = true;
+
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+
+        img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+            
+            // World Class Quality Setting: 0.82 (Balance between size and quality)
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                dlBtn.href = url;
+                dlBtn.download = "EasyUseHub_" + Date.now() + ".webp";
+                
+                btn.style.display = "none";
+                dlArea.style.display = "block";
+                btn.disabled = false;
+                btn.innerText = "CONVERT TO WEBP";
+
+                // Show Premium Notification
+                setTimeout(() => {
+                    document.getElementById('push-notification').classList.add('active');
+                }, 800);
+            }, 'image/webp', 0.82);
+        };
+
+        img.onerror = () => {
+            alert("Error processing image. Please try another file.");
+            btn.disabled = false;
+            btn.innerText = "CONVERT TO WEBP";
+        };
+    }
+</script>
+
+</body>
+</html>
