@@ -30,39 +30,37 @@
         
         .upload-zone { 
             border: 2px dashed #3b82f6; padding: 40px; border-radius: 20px; cursor: pointer; 
-            background: rgba(15, 23, 42, 0.5); margin-bottom: 25px; transition: 0.4s;
+            background: rgba(15, 23, 42, 0.5); margin-bottom: 25px; 
         }
         .upload-zone:hover { border-color: var(--accent); background: rgba(34, 211, 238, 0.05); }
         #fileInput { display: none; }
 
-        .status-msg { font-size: 14px; color: #94a3b8; margin-top: 10px; }
-
         .btn-main { 
             width: 100%; background: linear-gradient(135deg, #3b82f6, #06b6d4); color: white; border: none; 
             padding: 18px; border-radius: 15px; font-size: 16px; font-weight: 800; cursor: pointer;
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3); display: block;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
         }
-        .btn-main:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        #downloadArea { display: none; margin-top: 20px; animation: slideUp 0.5s ease; }
-        .dl-btn { background: #10b981; color: white; text-decoration: none; padding: 18px; border-radius: 15px; font-weight: 800; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3); }
+        #downloadArea { display: none; margin-top: 20px; }
+        .dl-btn { background: #10b981; color: white; text-decoration: none; padding: 18px; border-radius: 15px; font-weight: 800; display: flex; justify-content: center; align-items: center; gap: 10px; }
 
         /* Push Notification with X */
         #push-notification {
             position: fixed; bottom: -150px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 350px; 
             background: #1e293b; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); 
-            display: flex; align-items: center; padding: 15px; z-index: 10000; border: 1.5px solid var(--accent); transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; align-items: center; padding: 15px; z-index: 10000; border: 1.5px solid var(--accent); transition: 0.6s ease;
         }
         #push-notification.active { bottom: 90px; }
         .close-push { position: absolute; top: 8px; right: 12px; font-size: 22px; color: #64748b; cursor: pointer; font-weight: bold; }
         #push-notification img { width: 45px; height: 45px; border-radius: 10px; margin-right: 15px; }
 
-        /* Fixed Bottom Nav */
+        /* Fixed Bottom Nav with All PDF Tool Button */
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #161e2d; padding: 15px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; z-index: 1001; display: flex; justify-content: center; gap: 12px; }
-        .nav-link { text-decoration: none; padding: 12px 30px; border-radius: 30px; font-weight: 800; font-size: 14px; color: white; background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+        .nav-link { text-decoration: none; padding: 12px 25px; border-radius: 30px; font-weight: 800; font-size: 14px; color: white; display: inline-flex; align-items: center; gap: 8px; }
+        .h-btn { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+        .p-btn { background: #10b981; }
 
         canvas { display: none; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -101,18 +99,25 @@
 
         <div id="downloadArea">
             <a id="finalDl" class="dl-btn">⚡ DOWNLOAD WEBP</a>
-            <p class="status-msg">Success! Your image is optimized.</p>
         </div>
     </main>
 
     <div class="custom-ad-bridge" style="background: linear-gradient(135deg, #059669, #10b981);" onclick="window.open('https://easyusehub.blogspot.com/p/image-compressor.html', '_blank')">
         <span class="ad-title">⚡ High-Speed Image Optimizer</span>
+        <p style="font-size: 13px; opacity: 0.9;">Compress large images without quality loss.</p>
         <div class="ad-btn" style="background: #fff;">Try Free</div>
+    </div>
+
+    <div class="custom-ad-bridge" style="background: linear-gradient(135deg, #f59e0b, #d97706);" onclick="window.open('https://easyusehub.blogspot.com/p/ultimate-calculators-hub.html', '_blank')">
+        <span class="ad-title">🔢 Smart Calculator Suite</span>
+        <p style="font-size: 13px; opacity: 0.9;">Loan EMI, BMI Tracker, and Tax Calculators.</p>
+        <div class="ad-btn" style="background: #000; color: #fff;">View Tools</div>
     </div>
 </div>
 
 <div class="bottom-nav">
-    <a href="https://easyusehub.blogspot.com" class="nav-link">🏠 Home</a>
+    <a href="https://easyusehub.blogspot.com" class="nav-link h-btn">🏠 Home</a>
+    <a href="https://easyusehub.blogspot.com/p/free-pdf-tools-online.html" class="nav-link p-btn">📄 All PDF Tools</a>
 </div>
 
 <canvas id="canvas"></canvas>
@@ -135,7 +140,7 @@
 
     function processImage() {
         const file = input.files[0];
-        if(!file) return alert("Please select an image first!");
+        if(!file) return alert("Please select an image!");
 
         const btn = document.getElementById('processBtn');
         btn.innerText = "Processing...";
@@ -149,7 +154,6 @@
             canvas.height = img.height;
             ctx.drawImage(img, 0, 0);
             
-            // World Class Quality Setting: 0.82 (Balance between size and quality)
             canvas.toBlob((blob) => {
                 const url = URL.createObjectURL(blob);
                 dlBtn.href = url;
@@ -160,17 +164,10 @@
                 btn.disabled = false;
                 btn.innerText = "CONVERT TO WEBP";
 
-                // Show Premium Notification
                 setTimeout(() => {
                     document.getElementById('push-notification').classList.add('active');
                 }, 800);
             }, 'image/webp', 0.82);
-        };
-
-        img.onerror = () => {
-            alert("Error processing image. Please try another file.");
-            btn.disabled = false;
-            btn.innerText = "CONVERT TO WEBP";
         };
     }
 </script>
